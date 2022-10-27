@@ -1,0 +1,76 @@
+{
+  "create": {
+    "id": "h387afy7-496A-85B2-220F87BA1627",
+    "fhirId": "496A-85B2-220F87BA1627",
+    "tenantId": "h387afy7",
+    "resourceVersion": "2022090912432146",
+    "name": "Springfield Cancer Center",
+    "alias": ["SCC"],
+    "description": "Springfield Hospital Cancer Clinic",
+    "mode": "instance",
+    "type": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "ONCL",
+            "display": "Medical oncology clinic"
+          }          
+        ]
+      }
+    ],
+    "telecom": [
+      {
+        "system": "phone",
+        "originalSystem": {
+          "code": "telephone",
+          "system": "http://projectronin.io/fhir/StructureDefinition/Extension/tenant-sourceTelecomSystem"
+        },
+        "value": "877-632-6789"
+      }
+    ],
+    "address": {
+      "line": ["85 S Greenmount Ave"],
+      "city": "Springfield",
+      "state": "OH",
+      "postalCode": "45505",
+      "country": "US"
+    },
+    "physicalType": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+          "code": "bu",
+          "display": "Building"
+        }
+      ]
+    },
+    "position": {
+      "latitude": 39.92154777463638, 
+      "longitude": -83.78920291634977
+    },
+    "managingOrganization": {
+      "reference": "RoninOrganization/h387afy7-3D40-4B5D-BB8C-7779C4BFB5A0",
+      "resource": {
+        "type": "RoninOrganization",
+        "id": "h387afy7-D3D40-4B5D-BB8C-7779C4BFB5A0"
+      }
+    },
+    "partOf": {
+      "reference": "RoninLocation/h387afy7-47FA-9122-2F61977DEA05",
+      "resource": {
+        "type": "RoninOrganization",
+        "id": "h387afy7-47FA-9122-2F61977DEA05"
+      }      
+    },
+    "hoursOfOpperation": {
+      "daysOfWeek": ["mon", "tue", "wed", "thur"],
+      "allDay": false,
+      "openingTime": "08:00:00",
+      "closingTime": "17:00:00"
+    },
+    "availabilityExceptions": "Not availble during Ohio State football games",
+    "createdAt": "2022-09-13T12:14:15",
+    "updatedAt": "2022-09-21T21:07:35"
+  }
+}

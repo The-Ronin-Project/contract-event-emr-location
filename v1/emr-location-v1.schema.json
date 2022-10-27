@@ -1,0 +1,366 @@
+{
+  "$id": "https://github.com/projectronin/ronin-contract-emr-location/blob/main/v1/emr-location-v1.schema.json",
+  "title": "EMR Location",
+  "description": "This is the schema for a location within the EMR",
+  "type": "object",
+  "properties": {
+    "create" : {
+      "description": "This represents a create event.",
+      "$ref": "#/$defs/location"
+    },
+    "update": {
+      "description": "This represents an update event",
+      "$ref": "#/$defs/location"
+    },
+    "delete": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The primary identifier of the resource"
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "Tenant ID"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when the resource was deleted"
+        }
+      },
+      "required": ["id", "tenantId", "deletedAt"]
+    }
+  },
+  "$defs":  {
+    "coding": {
+      "type": "object",
+      "description": "This defines the required attributed for a FHIR code",
+      "properties": {
+        "system": {
+          "description": "The coding system that defines what the code represents",
+          "type": "string"
+        },
+        "code": {
+          "description": "The specific code determined by the system that specifies the value.",
+          "type": "string"
+        },
+        "display": {
+          "description": "The human readable value for the code",
+          "type": "string"
+        },
+        "version": {
+          "description": "The specific version of the system where the code is defined",
+          "type": "string"
+        }
+      }
+    },
+    "codeableConcept": {
+      "type":"object",
+      "description": "This is a CodeableConcept with an extracted emrText attribute that dictates the correct value to represent in an EMR context.",
+      "properties": {
+        "emrText": {
+          "type": "string"
+        },
+        "coding": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/coding"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "roninContactPoint": {
+      "type": "object",
+      "properties": {
+        "system": {
+          "type": "string",
+          "description": "Normalized system"
+        },
+        "originalSystem": {
+          "$ref": "#/$defs/coding",
+          "description": "Original system value from the EMR"
+        },
+        "value": {
+          "type": "string",
+          "description": "The actual phone number or email address"
+        },
+        "use": {
+          "type": "string",
+          "description": "Normalized use"
+        },
+        "originalUse": {
+          "$ref": "#/$defs/coding",
+          "description": "Original use value from the EMR"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The preferred order of use"
+        },
+        "period": {
+          "$ref": "#/$defs/period",
+          "description": "Time period when the contact was in use."
+        }
+      },
+      "required": ["value"]
+    },
+    "period": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "distinguishes between postal and residence or both"
+        },
+        "text": {
+          "type": "string",
+          "description": "display string of the address"
+        },
+        "line": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "city": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "state": {
+          "type":"string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/$defs/period",
+          "description": "Dates when the address was in use. Expected to be a date or a partial date"
+        }
+      }
+    },
+    "resourceReference": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "type": "object",
+          "description": "When this exists, it represents a reference to an actual resource. This is derived from the data specified in `reference`.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "This is the ronin resource type"
+            },
+            "id": {
+              "type": "string",
+              "description": "This is the ronin ID for the resource"
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "The FHIR type attribute of the resource"
+        },
+        "reference": {
+          "type": "string",
+          "format": "uri-template",
+          "description": "This should refer to a `resource.type/resource.id` but could refer to an external resource"
+        },
+        "identifier": {
+          "$ref": "#/$defs/identifier"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    },
+    "identifier": {
+      "type": "object",
+      "properties": {
+        "use": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/codeableConcept"
+        },
+        "system": {
+          "type": "string",
+          "format": "uri"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "description": "The resource representation",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Resource ID"
+        },
+        "fhirId": {
+          "type": "string",
+          "description": "The Patient's FHIR ID"
+        },
+        "tenantId": {
+          "type": "string",
+          "description": "The tenant ID"
+        },
+        "resourceVersion": {
+          "type": "string",
+          "description": "An monotonically incrementing version used for orderiung representations"
+        },
+        "status": {
+          "type": "string",
+          "description": "Whether the location is still in use"
+        },
+        "operationalStatus": {
+          "type": "string",
+          "description": "Opreational status of the location. Typically used for beds/rooms"
+        },
+        "name": {
+          "type": "string",
+          "description": "The naem of the location. Should exist unless there is a nameAbsentReason"
+        },
+        "nameAbsentReason": {
+          "type": "string",
+          "description": "Reason that there is no location name"
+        },
+        "alias": {
+          "description": "Alternate names that the location is or was knwn as",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Additional details about the location"
+        },
+        "mode": {
+          "type": "string",
+          "description": "Whether the lcoation represents a single location or a class of lcoations"
+        },
+        "type": {
+          "type": "array",
+          "description": "The types of functions performed at this location",
+          "items": {
+            "$ref": "#/$defs/codeableConcept"
+          }
+        },
+        "telecom": {
+          "type": "array",
+          "description": "Contact details of the location",
+          "items": {
+            "$ref": "#/$defs/roninContactPoint"
+          }
+        },
+        "address": {
+          "$ref": "#/$defs/address",
+          "description": "Physical location"
+        },
+        "physicalType": {
+          "$ref": "#/$defs/codeableConcept",
+          "description": "PHysical form of the location"
+        },
+        "position": {
+          "type": "object",
+          "description": "The absolute physical location",
+          "properties": {
+            "longitude": {
+              "type": "number"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "altitude": {
+              "type": "number"
+            }
+          },
+          "required": ["longitude", "latitude"]
+        },
+        "managingOrganization": {
+          "$ref": "#/$defs/resourceReference",
+          "description": "Organization responsible for provisioning and upkeep"
+        },
+        "partOf": {
+          "$ref": "#/$defs/resourceReference",
+          "description": "Another location that this location is a part of"
+        },
+        "hoursOfOperation": {
+          "type": "object",
+          "description": "What days/times during a week is this location usually open",
+          "properties": {
+            "daysOfWeek": {
+              "type": "array",
+              "description": "Which days of the week",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allDay": {
+              "type": "boolean",
+              "description": "Whether the location is open all day"
+            },
+            "openingTime": {
+              "type": "string",
+              "description": "Opening time in hh:mm:ss format"
+            },
+            "closingTime": {
+              "type": "string",
+              "description": "Closing time in hh:mm:ss format"
+            }
+          }
+        },
+        "availabilityExceptions": {
+          "type": "string",
+          "description": "Description of availability exceptions"
+        },
+        "endpoint": {
+          "type": "array",
+          "description": "Technical endpoints providing access to services operated for the location",
+          "items": {
+            "$ref": "#/$defs/resourceReference"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When was the resource created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When want the resource last updated"
+        }
+      },
+      "required": [
+        "id", 
+        "tenantId", 
+        "resourceVersion",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  }
+}
