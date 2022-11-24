@@ -281,7 +281,7 @@
         },
         "physicalType": {
           "$ref": "#/$defs/codeableConcept",
-          "description": "PHysical form of the location"
+          "description": "Physical form of the location"
         },
         "position": {
           "type": "object",
@@ -308,27 +308,31 @@
           "description": "Another location that this location is a part of"
         },
         "hoursOfOperation": {
-          "type": "object",
+          "type": "array",
           "description": "What days/times during a week is this location usually open",
-          "properties": {
-            "daysOfWeek": {
-              "type": "array",
-              "description": "Which days of the week",
-              "items": {
-                "type": "string"
+          "items": {
+            "type": "object",
+
+            "properties": {
+              "daysOfWeek": {
+                "type": "array",
+                "description": "Which days of the week",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "allDay": {
+                "type": "boolean",
+                "description": "Whether the location is open all day"
+              },
+              "openingTime": {
+                "type": "string",
+                "description": "Opening time in hh:mm:ss format"
+              },
+              "closingTime": {
+                "type": "string",
+                "description": "Closing time in hh:mm:ss format"
               }
-            },
-            "allDay": {
-              "type": "boolean",
-              "description": "Whether the location is open all day"
-            },
-            "openingTime": {
-              "type": "string",
-              "description": "Opening time in hh:mm:ss format"
-            },
-            "closingTime": {
-              "type": "string",
-              "description": "Closing time in hh:mm:ss format"
             }
           }
         },

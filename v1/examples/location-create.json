@@ -63,12 +63,14 @@
         "id": "h387afy7-47FA-9122-2F61977DEA05"
       }      
     },
-    "hoursOfOpperation": {
-      "daysOfWeek": ["mon", "tue", "wed", "thur"],
-      "allDay": false,
-      "openingTime": "08:00:00",
-      "closingTime": "17:00:00"
-    },
+    "hoursOfOperation": [
+      {
+        "daysOfWeek": ["mon", "tue", "wed", "thur"],
+        "allDay": false,
+        "openingTime": "08:00:00",
+        "closingTime": "17:00:00"
+      }
+    ],
     "availabilityExceptions": "Not availble during Ohio State football games",
     "createdAt": "2022-09-13T12:14:15",
     "updatedAt": "2022-09-21T21:07:35"

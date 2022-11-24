@@ -9,6 +9,19 @@ This contains a simple `Makefile` for automating validation and document generat
 - `make doc`: Compile human readable HTML documentation for each versioned schema
 - `make clean`: Cleans up all generated files
 
+# Implementation Notes
+* `name` is expected to either be non-empty OR an extension would be defined that defines the reason why its missing. This reason is what gets stored in `nameAbsentReason`. The extension would look like the following in the original FHIR.
+```
+_name: {
+  extension: [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+      "valueCode": "unknown"
+    }  
+  ]
+}
+```
+
 # Links
 - [Event Contract Management Standard](https://projectronin.atlassian.net/wiki/spaces/ENG/pages/1797521454/Event+Contract+Management+Standard)
 - [Ronin Event Standard](https://projectronin.atlassian.net/wiki/spaces/ENG/pages/1748041738/Ronin+Event+Standard)
