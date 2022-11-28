@@ -240,14 +240,14 @@
         },
         "name": {
           "type": "string",
-          "description": "The naem of the location. Should exist unless there is a nameAbsentReason"
+          "description": "The name of the location. Should exist unless there is a nameAbsentReason"
         },
         "nameAbsentReason": {
           "type": "string",
           "description": "Reason that there is no location name"
         },
         "alias": {
-          "description": "Alternate names that the location is or was knwn as",
+          "description": "Alternate names that the location is or was known as",
           "type": "array",
           "items": {
             "type": "string"
@@ -259,7 +259,7 @@
         },
         "mode": {
           "type": "string",
-          "description": "Whether the lcoation represents a single location or a class of lcoations"
+          "description": "Whether the location represents a single location or a class of locations"
         },
         "type": {
           "type": "array",
