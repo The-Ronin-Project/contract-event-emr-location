@@ -220,7 +220,7 @@
         },
         "fhirId": {
           "type": "string",
-          "description": "The Patient's FHIR ID"
+          "description": "The FHIR ID"
         },
         "tenantId": {
           "type": "string",
@@ -228,7 +228,7 @@
         },
         "resourceVersion": {
           "type": "string",
-          "description": "An monotonically incrementing version used for orderiung representations"
+          "description": "A monotonically incrementing version used for ordering representations"
         },
         "status": {
           "type": "string",
@@ -355,12 +355,13 @@
         "updatedAt": {
           "type": "string",
           "format": "date-time",
-          "description": "When want the resource last updated"
+          "description": "When was the resource last updated"
         }
       },
       "required": [
         "id", 
-        "tenantId", 
+        "tenantId",
+        "fhirId",
         "resourceVersion",
         "createdAt",
         "updatedAt"
